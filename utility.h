@@ -18,7 +18,7 @@ typedef struct {
 } TArticulo;
 
 void menu();
-void inicializar(TArticulo articulos[NUMARTS]);
+void buscar(TArticulo articulos[NUMARTS]);
 void comprar(float *m, TArticulo articulos[NUMARTS]);
 void money(float *m);
 void ticket(TArticulo articulos[NUMARTS]);
