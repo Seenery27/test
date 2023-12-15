@@ -41,7 +41,7 @@ int main() {
     switch(op) {
       case 1:
         printf("¡Buenos días! Aquí tenemos una lista de articulos para comprar:\n");
-        inicializar(articulos);
+        buscar(articulos);
         break;
 
       case 2:
