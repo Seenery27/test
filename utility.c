@@ -10,7 +10,7 @@ void money(float *m){
 }
 
 // Este funciona se asigna los valores por la lista de artículos que tenemos, 
-void inicializar(TArticulo articulos[NUMARTS]) {
+void buscar(TArticulo articulos[NUMARTS]) {
   int a;
   printf("articulo: ");
   scanf("%d", &a);
