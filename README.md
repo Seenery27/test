@@ -1,5 +1,5 @@
 # Cómo ejecutar
-Para ejecutar los archivos en conjunto, ejecute la siguiente línea en su terminal:
+Para ejecutar los archivos en conjunto, ejecuta la siguiente línea en tu terminal:
 ```
 gcc main.c utility.c 
 ```
