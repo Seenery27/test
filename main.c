@@ -1,5 +1,3 @@
-
-
 #include "utility.h"
 
 
@@ -42,11 +40,17 @@ int main() {
       case 1:
         printf("¡Buenos días! Aquí tenemos una lista de articulos para comprar:\n");
         buscar(articulos);
+        printf("Pulsa enter para continuar.");
+        pulsaEnter();
+        clear();
         break;
 
       case 2:
         printf("Tienes %.2f euros.\n", m);        
         comprar(&m, articulos);
+        printf("Pulsa enter para continuar.");
+        pulsaEnter();
+        clear();
 
         break;
 
@@ -56,10 +60,16 @@ int main() {
 
       case 4:
         ticket(articulos);
+        printf("Pulsa enter para continuar.");
+        pulsaEnter();
+        clear();
         break;
 
       default:
         printf("Opción no valida. Intenta de nuevo.\n\n");
+        printf("Pulsa enter para continuar.");
+        pulsaEnter();
+        clear();
         break;
 
 
