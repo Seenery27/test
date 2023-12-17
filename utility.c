@@ -1,6 +1,12 @@
 #include "utility.h"
 
+void clear() {
+     printf("\033[2J"); 
+}
 
+void pulsaEnter() {
+  while (getchar() != '\n');
+}
 
 
 void money(float *m){
@@ -12,22 +18,25 @@ void money(float *m){
 // Este funciona se asigna los valores por la lista de artículos que tenemos, 
 void buscar(TArticulo articulos[NUMARTS]) {
   int a;
-  printf("articulo: ");
+  printf("Ingrese el número de artículo: ");
   scanf("%d", &a);
 
-  if (a < 1 || a > NUMARTS-1) {
-    printf("No existe este articulo.\n");
-  } else {
-      printf("REF: %d \n", articulos[a].codigo);
-      printf("DESC: %s \n", articulos[a].descripcion);
-      printf("PRECIO: %.2f \n", articulos[a].precio);
-      printf("STOCK: %d \n\n", articulos[a].stock);
-  }
+  if (a < 0 || a >= NUMARTS) {
+    printf("El artículo no existe.\n");
 
+
+
+  } else {
+    printf("REF: %d \n", articulos[a].codigo);
+    printf("DESC: %s \n", articulos[a].descripcion);
+    printf("PRECIO: %.2f \n", articulos[a].precio);
+    printf("STOCK: %d \n\n", articulos[a].stock);
+  }
+  pulsaEnter();
 }
   
 
-void menu(int *A){
+void menu(int *opcion){
     
   printf("Menu\n\n");
   printf("Pulsa un numero para elegir\n");
@@ -35,7 +44,8 @@ void menu(int *A){
   printf("2- Comprar articulos\n");
   printf("3- Salir\n");
   printf("4- Sacar el ticket\n");
-  scanf("%d",A);
+  scanf("%d",opcion);
+
 
 }
 
@@ -46,20 +56,20 @@ void comprar(float *m, TArticulo articulos[NUMARTS]){
   scanf("%d",&code);
   if (*m - articulos[code].precio < 0) {
     printf("\nNo puedes comprar este articulo.");
-  } else {
-      if (code == articulos[code].codigo) {
-        if (articulos[code].stock != 0) {
-          *m-=articulos[code].precio;
-          articulos[code].stock--;
-          articulos[code].cantidad_comprada++;
-          printf("Añadiste el %s a tu carrito\n", articulos[code].descripcion);
-          printf("Tienes %.2f euros restantes\n\n",*m);
-      } else {
+  } else { 
+      if (articulos[code].stock != 0) {
+        *m-=articulos[code].precio;
+        articulos[code].stock--;
+        articulos[code].cantidad_comprada++;
+        printf("Añadiste el %s a tu carrito\n", articulos[code].descripcion);
+        printf("Tienes %.2f euros restantes\n\n",*m);
+    } else {
         printf("No tenemos este articulo en stock, disculpe por las molestias.\n\n");
-      }
     }
   }
+  pulsaEnter();
 }
+
 
 
 
@@ -82,6 +92,7 @@ void reembolso(float *m, TArticulo articulos[NUMARTS]){
       }
     }
   }
+  pulsaEnter();
 }
 
 
@@ -101,4 +112,8 @@ void ticket(TArticulo articulos[NUMARTS]) {
   }
   printf("---------------------------------------------------------------------\n");
   printf("Total: %.2f\n", cantidadTotal);
+  pulsaEnter();
 }
+
+
+
