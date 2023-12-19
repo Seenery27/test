@@ -38,7 +38,7 @@ int main() {
     menu(&op);    // Ejecuta una función que va a imprimir opciones y se pide el usuario a elegir una opción con variable op
 
     switch(op) {
-      case 1:
+      case 1:    //Si el usario quiere buscar por un artículo
         printf("¡Buenos días! Aquí tenemos una lista de articulos para comprar:\n");
         buscar(articulos);
         printf("Pulsa enter para continuar.");
@@ -46,7 +46,7 @@ int main() {
         clear();
         break;
 
-      case 2:
+      case 2:      //Si el usario quiere comprar un artículo
         printf("Tienes %.2f euros.\n", m);        
         comprar(&m, articulos);
         printf("Pulsa enter para continuar.");
@@ -54,7 +54,7 @@ int main() {
         clear();
 
         break;
-      case 3:
+      case 3:     //Si el usario quiere devolver un artículo
         printf("Tienes %.2f euros.\n", m);        
         reembolso(&m, articulos);
         printf("Pulsa enter para continuar.");
@@ -62,18 +62,18 @@ int main() {
         clear();
 
         break;
-      case 4:
+      case 4:     //Si el usuario quiere salir y terminar el bucle
         printf("Saliendo...\n");
         break;
 
-      case 5:
+      case 5:     //Si el usuario quiere imprimir el ticket
         ticket(articulos);
         printf("Pulsa enter para continuar.");
         pulsaEnter();
         clear();
         break;
 
-      default:
+      default:    //Si algo inespecificado está puesto
         printf("Opción no valida. Intenta de nuevo.\n\n");
         printf("Pulsa enter para continuar.");
         pulsaEnter();
