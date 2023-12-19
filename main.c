@@ -74,8 +74,10 @@ int main() {
         break;
 
       default:    //Si algo inespecificado está puesto
+        color(31);
         printf("Opción no valida. Intenta de nuevo.\n\n");
-        printf("Pulsa enter para continuar.");
+        color(37);
+        printf("Pulsa enter para continuar.\n");
         pulsaEnter();
         clear();
         break;
