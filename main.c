@@ -5,7 +5,7 @@
 int main() {
   TArticulo articulos[NUMARTS];
   char *descripciones[] = {     //Este array tiene la lista de nombres para copiar a nuestro estructura
-    "NULL",
+    "NULL",              //"NULL" existe porque el caracteristico "codigo" es igual a la posición de la lista, así que cuando una función que pide al usuario a ingresar el código del artículo, no empieza de cero.
     "Ratón InSys",
     "Teclado InSys",
     "Pantalla AlHua",
@@ -20,21 +20,22 @@ int main() {
   int stock_inicial[] = {0, 2, 22, 20, 20, 20, 20, 20};
   int cant_comp[] = {0,0,0,0,0,0,0,0};
 
-  for (int i = 1;i<NUMARTS;i++ ) {
+  for (int i = 1;i<NUMARTS;i++ ) {                            //Este bucle es para inicializar las estructuras y asignar los valores arriba.
     strcpy(articulos[i].descripcion, descripciones[i]);
     articulos[i].codigo = i;
     articulos[i].precio = precios[i];
     articulos[i].stock = stocks[i];
+    articulos[i].stock_inicial = stock_inicial[i];
     articulos[i].cantidad_comprada = cant_comp[i];
 
   }
-  int op;
-  float m = 0;
-  money(&m);
+  int op;  // Este variable es para elegir los casos en el condicional de switch.
+  float m = 0; // Este variable contiene la cantidad de dinero que tiene el usuario.
+  money(&m);  //Este función se asigna un valor aleatorio entre 2000-4000 y está asignado al variable m.
   
 
   do {
-    menu(&op);
+    menu(&op);    // Ejecuta una función que va a imprimir opciones y se pide el usuario a elegir una opción con variable op
 
     switch(op) {
       case 1:
@@ -53,12 +54,19 @@ int main() {
         clear();
 
         break;
-
       case 3:
+        printf("Tienes %.2f euros.\n", m);        
+        reembolso(&m, articulos);
+        printf("Pulsa enter para continuar.");
+        pulsaEnter();
+        clear();
+
+        break;
+      case 4:
         printf("Saliendo...\n");
         break;
 
-      case 4:
+      case 5:
         ticket(articulos);
         printf("Pulsa enter para continuar.");
         pulsaEnter();
@@ -74,7 +82,7 @@ int main() {
 
 
     } 
-  } while (op != 3);
+  } while (op != 4);
 
   return 0;
 }
