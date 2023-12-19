@@ -22,7 +22,9 @@ void buscar(TArticulo articulos[NUMARTS]) {
   scanf("%d", &a);
 
   if (a < 0 || a >= NUMARTS) {
+    color(31);
     printf("El artículo no existe.\n");
+    color(37);
   } else {
     printf("REF: %d \n", articulos[a].codigo);
     printf("DESC: %s \n", articulos[a].descripcion);
@@ -48,19 +50,26 @@ void comprar(float *moneda, TArticulo articulos[NUMARTS]){
   int code;
   printf("Introduce el codigo de artículo que quieres comprar: ");
   scanf("%d",&code);
-  if (*moneda - articulos[code].precio < 0) {  
-    printf("\nNo puedes comprar este articulo.\n");
-  } 
-  else { 
-    if (articulos[code].stock != 0) {
-      *moneda-=articulos[code].precio;
-      articulos[code].stock--;
-      articulos[code].cantidad_comprada++;
-      printf("Añadiste el %s a tu carrito\n", articulos[code].descripcion);
-      printf("Tienes %.2f euros restantes\n\n",*moneda);
+  if (code < 0 || code >= NUMARTS) {
+    color(31);
+    printf("El artículo no existe.\n");
+    color(37);
+  }
+  else {  
+    if (*moneda - articulos[code].precio < 0) {  
+      printf("\nNo puedes comprar este articulo.\n");
     } 
-    else {
-      printf("No tenemos este articulo en stock, disculpe por las molestias.\n\n");
+    else { 
+      if (articulos[code].stock != 0) {
+        *moneda-=articulos[code].precio;
+        articulos[code].stock--;
+        articulos[code].cantidad_comprada++;
+        printf("Añadiste el %s a tu carrito\n", articulos[code].descripcion);
+        printf("Tienes %.2f euros restantes\n\n",*moneda);
+      } 
+      else {
+        printf("No tenemos este articulo en stock, disculpe por las molestias.\n\n");
+      }
     }
   }
   pulsaEnter();
@@ -70,17 +79,23 @@ void reembolso(float *moneda, TArticulo articulos[NUMARTS]){
   int code;
   printf("Introduce el codigo de artículo que quieres reembolsar: ");
   scanf("%d",&code);
-  if ( articulos[code].stock_inicial - articulos[code].stock == 0) {
-    printf("\nNo puedes reembolsar este articulo.");
-  } 
+    if (code < 0 || code >= NUMARTS) {
+    color(31);
+    printf("El artículo no existe.\n");
+    color(37);
+  }
   else {
-    *moneda+=articulos[code].precio;
-    articulos[code].stock++;
-    articulos[code].cantidad_comprada--;
-    printf("Quitaste el %s de tu carrito\n", articulos[code].descripcion);
-    printf("Tienes %.2f euros restantes\n\n",*moneda);
-      }
-
+    if ( articulos[code].stock_inicial - articulos[code].stock == 0) {
+      printf("\nNo puedes reembolsar este articulo.");
+    } 
+    else {
+      *moneda+=articulos[code].precio;
+      articulos[code].stock++;
+      articulos[code].cantidad_comprada--;
+      printf("Quitaste el %s de tu carrito\n", articulos[code].descripcion);
+      printf("Tienes %.2f euros restantes\n\n",*moneda);
+    }
+  }
   pulsaEnter();
 }
 
@@ -144,12 +159,22 @@ void canjear_Descuento(float *cantidadTotal_temporal)
 		if ( strcmp(codigo_descuento, codigo_usuario) == 0 ) 
 		{
 			 *cantidadTotal_temporal = *cantidadTotal_temporal * 0.90; // descuento del 10%
+      color(32);
 			printf("Tu descuento se proceso correctamente, Pagarás 10 porciento menos \n");
-		}
+		  color(37);
+    }
 		else // escribes un código equivocado 
 		{
+      color(31);
 			printf("El código introducido no es valido, pagarás precio el original  \n" );
+      color(37);
 		}
 	}
+}
+
+
+void color(int color) {
+  
+     printf("\033[%dm",color); 
 }
 
