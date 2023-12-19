@@ -31,4 +31,4 @@ void ticket(TArticulo articulos[NUMARTS]);
 void clear();
 void pulsaEnter();
 void canjear_Descuento(float *cantidadTotal_temporal);
-
+void color(int color);
