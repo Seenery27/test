@@ -1,31 +1,35 @@
 #include "utility.h"  //Este fichero es para enlacer los ficheros de main.c y utility.c. Contiene todos los librarios que necesitaremos.
 
-void clear() {
+//Para limpiar la pantalla
+void clear() {  
      printf("\033[2J"); 
 }
 
-void pulsaEnter() {
+//Cuando el usuario se pulsa enter, el programa continua
+void pulsaEnter() {   
   while (getchar() != '\n');
 }
 
 
-void money(float *moneda){
+//Asignar un valor a moneda
+void money(float *moneda){   
   srand(time(NULL));
   float numero = 2000 + rand() % 2000;  // Genera un numero(aleatorio) entre 2000 y 4000
   *moneda = numero;
 }
 
 // Este funciona se busca por el código introducido y se devuelva la información relacionado con el código introducido.
-void buscar(TArticulo articulos[NUMARTS]) {
+void buscar(TArticulo articulos[NUMARTS]) {   
   int a;
   printf("Ingrese el número de artículo (1-%d): ", NUMARTS-1);
   scanf("%d", &a);
 
   if (a < 0 || a >= NUMARTS) {
-    color(31);
+    color(31); //Imprime todo abajo en color rojo
     printf("El artículo no existe.\n");
-    color(37);
-  } else {
+    color(37); //Imprime todo abajo en color blanco para prevenir la función color anterior de escribir cada linea en rojo.
+
+  } else { //Aquí va a imprimir los caracteristicos que están asociados con el código introducido.
     printf("REF: %d \n", articulos[a].codigo);
     printf("DESC: %s \n", articulos[a].descripcion);
     printf("PRECIO: %.2f \n", articulos[a].precio);
@@ -34,6 +38,7 @@ void buscar(TArticulo articulos[NUMARTS]) {
   pulsaEnter();
 }
   
+//Imprimir el menu del programa
 void menu(int *opcion){
     
   printf("Menu\n\n");
@@ -46,9 +51,10 @@ void menu(int *opcion){
   scanf("%d",opcion);
 }
 
+//Este funciona se busca por el código introducido y se compra el artículo con el código introducido.
 void comprar(float *moneda, TArticulo articulos[NUMARTS]){
   int code;
-  printf("Introduce el codigo de artículo que quieres comprar: ");
+  printf("Introduce el codigo de artículo que quieres comprar (1-%d): ", NUMARTS-1);
   scanf("%d",&code);
   if (code < 0 || code >= NUMARTS) {
     color(31);
@@ -75,6 +81,7 @@ void comprar(float *moneda, TArticulo articulos[NUMARTS]){
   pulsaEnter();
 }
 
+//Este funciona se busca por el código introducido y se reembolsa el artículo con el código introducido.
 void reembolso(float *moneda, TArticulo articulos[NUMARTS]){
   int code;
   printf("Introduce el codigo de artículo que quieres reembolsar: ");
@@ -86,7 +93,9 @@ void reembolso(float *moneda, TArticulo articulos[NUMARTS]){
   }
   else {
     if ( articulos[code].stock_inicial - articulos[code].stock == 0) {
+      color(31);
       printf("\nNo puedes reembolsar este articulo.");
+      color(37);
     } 
     else {
       *moneda+=articulos[code].precio;
@@ -99,7 +108,7 @@ void reembolso(float *moneda, TArticulo articulos[NUMARTS]){
   pulsaEnter();
 }
 
-
+//Esta función se imprime un ticket que tiene los artículos comprados y sus cantidades y en final se imprime el total.
 void ticket(TArticulo articulos[NUMARTS]) {
   float cantidadTotal = 0;
   float cantidadTotal_temporal = 0;
@@ -109,12 +118,15 @@ void ticket(TArticulo articulos[NUMARTS]) {
     }
   }
 
- canjear_Descuento(&cantidadTotal_temporal);
+
+ canjear_Descuento(&cantidadTotal_temporal); //Para aplicar un descuento si lo tiene el usuario
 
   printf("---------------------------------------------------------------------\n");
   printf("%-20s%-10s%-10s%-10s\n", "Descripción", "Cantidad", "Precio", "Total");
   printf("---------------------------------------------------------------------\n");
-  for(int i=1;i<NUMARTS;i++) {
+
+  //Imprime el artículo y su información si tiene una cantidad comprada más de 1
+  for(int i=1;i<NUMARTS;i++) {    
     if (articulos[i].cantidad_comprada > 0) {
       printf("%-20s%-10d%-10.2f%-15.2f\n", articulos[i].descripcion, articulos[i].cantidad_comprada, articulos[i].precio, articulos[i].cantidad_comprada*articulos[i].precio);
       cantidadTotal += articulos[i].cantidad_comprada*articulos[i].precio;
@@ -123,6 +135,7 @@ void ticket(TArticulo articulos[NUMARTS]) {
   }
   printf("---------------------------------------------------------------------\n");
 
+  //Total de todos los artículos
  if(cantidadTotal_temporal != 0){
     cantidadTotal = cantidadTotal_temporal;
     printf("Total con descuento: %.2f\n", cantidadTotal);
@@ -134,7 +147,7 @@ void ticket(TArticulo articulos[NUMARTS]) {
   pulsaEnter();
 }
 
- 
+//Esta función se aplica un descuento al total
 void canjear_Descuento(float *cantidadTotal_temporal)
 {
 
@@ -172,9 +185,9 @@ void canjear_Descuento(float *cantidadTotal_temporal)
 	}
 }
 
-
+//Esta función se pinta el texto después en el color especificado por códigos de escapar ANSI.
 void color(int color) {
-  
+
      printf("\033[%dm",color); 
 }
 
